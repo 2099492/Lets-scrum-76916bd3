@@ -310,7 +310,5 @@ function colorRect(x, y, w, h, c) {
     canvasContext.fillRect(x, y, w, h);
 }
 
-
-
-
+//enemy bullet time
 setInterval(makeEnemyBullet, 2000);
