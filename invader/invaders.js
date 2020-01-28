@@ -50,6 +50,11 @@ var setUp = true;
 var totalEnemies = 10;
 var hitting = false;
 
+
+var wSetUp = true;
+var totalWalls = 10;
+var wHitting = false;
+
 // var ship = new Image();
 // ship.src = 'gun.png'
 // cheemsX = pXpos - 12;
@@ -75,10 +80,23 @@ function mainLoop() {
         setUp = false;
     }
 
+    if (wSetUp == true) {
+        for (i = 0; i < totalWalls; i++) {
+            makeWall();
+        }
+        wSetUp = false;
+    }
+
     // cheemsMove();
 
     player.draw();
     player.move();
+
+    if (walls.length > 0) {
+      walls.forEach(function(wall, i){
+        wall.draw();
+      })
+    }
 
 
 
@@ -117,7 +135,7 @@ function mainLoop() {
             bullet.draw();
             bullet.move();
 
-            if (bullets.length > 3) {
+            if (bullets.length > 1) {
                 delete bullets[i];
             }
         });
@@ -174,7 +192,7 @@ function makeBullet() {
     const BULLET_SIZE = 5;
     var bulletXpos = player.x + player.w / 2 - BULLET_SIZE / 2;
     var bulletYpos = player.y - BULLET_SIZE;
-    var bulletYspeed = 10;
+    var bulletYspeed = 5;
 
     var bullet = new Bullet(bulletXpos, bulletYpos, BULLET_SIZE, BULLET_SIZE, 'white', bulletYspeed);
 
@@ -209,19 +227,27 @@ function makeEnemy() {
 
   var wallCounter = 0;
 
-function makeWall() {
-  const WALL_SIZE = 10;
-  const WALL_GAP = 0;
-  var wallXpos = 30;
-  var wallYpos = 550;
+  function makeWall() {
+      const WALL_SIZE = 40;
+      var wallXpos = 5;
+      var wallYpos = 650;
+      // var wallYpos2 = 160;
+      // var wallYpos3 = 110;
+      // var wallYpos4 = 61;
+      // var wallXspeed = 1;
+      // var wallYspeed = 30;
 
-  wallCounter ++;
+      wallCounter++;
 
-  var wall = new Wall(wallXpos,wallYpos,WALL_SIZE,WALL_SIZE);
+      var wall = new Wall(wallXpos, wallYpos, WALL_SIZE, WALL_SIZE, 'red');
+
+      walls.push(wall);
+
+      console.log('wall' + wallCounter);
+
+  }
 
 
-
-}
 
 function drawImg(src, x, y, w, h) {
     canvasContext.drawImage(src, x, y, w, h);
