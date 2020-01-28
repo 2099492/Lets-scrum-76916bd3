@@ -46,6 +46,8 @@ var enemies = [];
 
 var walls = [];
 
+var enemyBullets = [];
+
 var setUp = true;
 var totalEnemies = 10;
 var hitting = false;
@@ -98,7 +100,11 @@ function mainLoop() {
         })
     }
 
-
+    if (enemyBullets.length > 0) {
+        enemyBullets.forEach(function(enemyBullet, i) {
+            enemyBullet.draw();
+        })
+    }
 
     if (bullets.length > 0) {
         bullets.forEach(function(bullet, i) {
@@ -231,6 +237,19 @@ function makeEnemy() {
 
 }
 
+function makeEnemyBullet() {
+    const ENEMYBULLET_SIZE = 5;
+    var enemyBulletXpos = enemy.x + enemy.w / 2 - ENEMYBULLET_SIZE / 2;
+    var enemyBulletYpos = enemy.y - ENEMYBULLET_SIZE;
+    var enemyBulletYspeed = 5;
+
+    var enemyBullet = new EnemyBullet(enemyBulletXpos, enemyBulletYpos, ENEMYBULLET_SIZE, ENEMYBULLET_SIZE, 'green', enemyBulletYspeed);
+
+    enemyBullets.push(enemyBullet);
+
+    var EnemyLocation = enemies[Math.floor(Math.random() * items.length)];
+}
+
 var wallCounter = 0;
 
 //hallo
@@ -278,10 +297,6 @@ function makeWall() {
     walls.push(wall, wall2, wall3, wall4, wall5, wall6, wall7, wall8, wall9, wall10, wall11, wall12, wall13, wall14, wall15, wall16);
 
     console.log('wall' + wallCounter);
-
-
-
-
 }
 
 
@@ -294,3 +309,8 @@ function colorRect(x, y, w, h, c) {
     canvasContext.fillStyle = c;
     canvasContext.fillRect(x, y, w, h);
 }
+
+
+
+
+setInterval(makeEnemyBullet, 2000);
