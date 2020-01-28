@@ -114,6 +114,10 @@ function mainLoop() {
                 score++;
                 console.log(score);
             }
+            if (bullet.hasCollidedWall()) {
+              delete bullets[i];
+
+            }
         });
         bullets = bullets.filter(item => item !== undefined);
     }
@@ -135,7 +139,7 @@ function mainLoop() {
             bullet.draw();
             bullet.move();
 
-            if (bullets.length > 1) {
+            if (bullets.length > 3) {
                 delete bullets[i];
             }
         });
@@ -194,7 +198,7 @@ function makeBullet() {
     var bulletYpos = player.y - BULLET_SIZE;
     var bulletYspeed = 5;
 
-    var bullet = new Bullet(bulletXpos, bulletYpos, BULLET_SIZE, BULLET_SIZE, 'white', bulletYspeed);
+    var bullet = new Bullet(bulletXpos, bulletYpos, BULLET_SIZE, BULLET_SIZE, 'black', bulletYspeed);
 
     bullets.push(bullet);
 }
@@ -226,6 +230,8 @@ function makeEnemy() {
 }
 
   var wallCounter = 0;
+
+  //hallo
 
   function makeWall() {
       const WALL_SIZE = 10;

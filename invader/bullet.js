@@ -43,4 +43,26 @@ class Bullet{
     return collided;
   }
 
+  hasHitItemW(item){
+    return ((this.x + this.w) >= item.x && this.x < (item.x + item.w)) && ((this.y + this.h) >= item.y
+    && this.y <= (item.y + item.h));
+  }
+
+  hasHitWall(wall){
+    return this.hasHitItemW(wall);
+  }
+
+  hasCollidedWall(){
+    var self = this;
+    var collidedW = false;
+    walls.forEach(function(wall,i){
+      if (self.hasHitWall(wall)) {
+        delete walls[i];
+        collidedW = true;
+      }
+    });
+    walls = walls.filter(item => item !== undefined);
+    return collidedW;
+  }
+
 }
