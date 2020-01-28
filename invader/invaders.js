@@ -18,7 +18,7 @@ var pXspeed = 5;
 var pYspeed = 3;
 const P_SIZE = 50;
 var pSrc = new Image();
-pSrc.src = 'gun.png';
+pSrc.src = 'spaceship.png';
 
 
 //enemy
@@ -44,7 +44,7 @@ var bullets = [];
 
 var enemies = [];
 
-var walls =[];
+var walls = [];
 
 var setUp = true;
 var totalEnemies = 10;
@@ -52,7 +52,7 @@ var hitting = false;
 
 
 var wSetUp = true;
-var totalWalls = 10;
+var totalWalls = 40;
 var wHitting = false;
 
 // var ship = new Image();
@@ -69,7 +69,7 @@ canvasBackGround.src = 'cheems.jpg';
 
 
 function mainLoop() {
-    drawImg(canvasBackGround,0, 0, canvas.width, canvas.height);
+    drawImg(canvasBackGround, 0, 0, canvas.width, canvas.height);
     // var cheems = drawImg(ship, cheemsX, cheemsY, 50, 50);
 
 
@@ -93,9 +93,9 @@ function mainLoop() {
     player.move();
 
     if (walls.length > 0) {
-      walls.forEach(function(wall, i){
-        wall.draw();
-      })
+        walls.forEach(function(wall, i) {
+            wall.draw();
+        })
     }
 
 
@@ -115,7 +115,7 @@ function mainLoop() {
                 console.log(score);
             }
             if (bullet.hasCollidedWall()) {
-              delete bullets[i];
+                delete bullets[i];
 
             }
         });
@@ -216,42 +216,73 @@ function makeEnemy() {
     var enemyXspeed = 1;
     var enemyYspeed = 30;
     var enemySrc = new Image();
-    enemySrc.src = 'cheems.jpg';
+    enemySrc.src = 'enemy.png';
+    var enemySrc2 = new Image();
+    enemySrc2.src = 'enemy_2.png';
 
     enemyCounter++;
 
-    var enemy = new Enemy(enemySrc,enemyXpos, enemyYpos, ENEMY_SIZE, ENEMY_SIZE, enemyXspeed, enemyYspeed);
-    var enemy2 = new Enemy(enemySrc,enemyXpos, enemyYpos2, ENEMY_SIZE, ENEMY_SIZE, enemyXspeed, enemyYspeed);
-    var enemy3 = new Enemy(enemySrc,enemyXpos, enemyYpos3, ENEMY_SIZE, ENEMY_SIZE, enemyXspeed, enemyYspeed);
-    var enemy4 = new Enemy(enemySrc,enemyXpos, enemyYpos4, ENEMY_SIZE, ENEMY_SIZE, enemyXspeed, enemyYspeed);
+    var enemy = new Enemy(enemySrc, enemyXpos, enemyYpos, ENEMY_SIZE, ENEMY_SIZE, enemyXspeed, enemyYspeed);
+    var enemy2 = new Enemy(enemySrc, enemyXpos, enemyYpos2, ENEMY_SIZE, ENEMY_SIZE, enemyXspeed, enemyYspeed);
+    var enemy3 = new Enemy(enemySrc2, enemyXpos, enemyYpos3, ENEMY_SIZE, ENEMY_SIZE, enemyXspeed, enemyYspeed);
+    var enemy4 = new Enemy(enemySrc2, enemyXpos, enemyYpos4, ENEMY_SIZE, ENEMY_SIZE, enemyXspeed, enemyYspeed);
 
     enemies.push(enemy, enemy2, enemy3, enemy4);
 
 }
 
-  var wallCounter = 0;
+var wallCounter = 0;
 
-  //hallo
+//hallo
 
-  function makeWall() {
-      const WALL_SIZE = 10;
-      var wallXpos = wallCounter * WALL_SIZE;
-      var wallYpos = 550;
-      // var wallYpos2 = 160;
-      // var wallYpos3 = 110;
-      // var wallYpos4 = 61;
-      // var wallXspeed = 1;
-      // var wallYspeed = 30;
+function makeWall() {
+    const WALL_SIZE = 5;
+    const wallGap = 10;
+    var wallXpos = wallCounter * WALL_SIZE + wallGap * WALL_SIZE;
+    var wallYpos = 550;
+    var wallYpos2 = 555;
+    var wallYpos3 = 560;
+    var wallYpos4 = 565;
+    var wallYpos5 = 570;
+    var wallYpos6 = 575;
+    var wallYpos7 = 580;
+    var wallYpos8 = 585;
 
-      wallCounter++;
+    var wallXpos2 = 350 + wallCounter * WALL_SIZE;
 
-      var wall = new Wall(wallXpos, wallYpos, WALL_SIZE, WALL_SIZE, 'red');
+    wallCounter++;
 
-      walls.push(wall);
 
-      console.log('wall' + wallCounter);
 
-  }
+    //linker wall
+    var wall = new Wall(wallXpos, wallYpos, WALL_SIZE, WALL_SIZE, 'red');
+    var wall2 = new Wall(wallXpos, wallYpos2, WALL_SIZE, WALL_SIZE, 'red');
+    var wall3 = new Wall(wallXpos, wallYpos3, WALL_SIZE, WALL_SIZE, 'red');
+    var wall4 = new Wall(wallXpos, wallYpos4, WALL_SIZE, WALL_SIZE, 'red');
+    var wall5 = new Wall(wallXpos, wallYpos5, WALL_SIZE, WALL_SIZE, 'red');
+    var wall6 = new Wall(wallXpos, wallYpos6, WALL_SIZE, WALL_SIZE, 'red');
+    var wall7 = new Wall(wallXpos, wallYpos7, WALL_SIZE, WALL_SIZE, 'red');
+    var wall8 = new Wall(wallXpos, wallYpos8, WALL_SIZE, WALL_SIZE, 'red');
+
+    //rechter wall
+    var wall9 = new Wall(wallXpos2, wallYpos, WALL_SIZE, WALL_SIZE, 'red');
+    var wall10 = new Wall(wallXpos2, wallYpos2, WALL_SIZE, WALL_SIZE, 'red');
+    var wall11 = new Wall(wallXpos2, wallYpos3, WALL_SIZE, WALL_SIZE, 'red');
+    var wall12 = new Wall(wallXpos2, wallYpos4, WALL_SIZE, WALL_SIZE, 'red');
+    var wall13 = new Wall(wallXpos2, wallYpos5, WALL_SIZE, WALL_SIZE, 'red');
+    var wall14 = new Wall(wallXpos2, wallYpos6, WALL_SIZE, WALL_SIZE, 'red');
+    var wall15 = new Wall(wallXpos2, wallYpos7, WALL_SIZE, WALL_SIZE, 'red');
+    var wall16 = new Wall(wallXpos2, wallYpos8, WALL_SIZE, WALL_SIZE, 'red');
+
+
+    walls.push(wall, wall2, wall3, wall4, wall5, wall6, wall7, wall8, wall9, wall10, wall11, wall12, wall13, wall14, wall15, wall16);
+
+    console.log('wall' + wallCounter);
+
+
+
+
+}
 
 
 
