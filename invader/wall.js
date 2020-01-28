@@ -1,13 +1,14 @@
 class Wall{
-  constructor(src, x, y, h, w, x){
-    this.src = src;
+  constructor(x, y, h, w, c){
     this.x = x;
     this.y = y;
     this.h = h;
     this.w = w;
+    this.c = c;
   }
 
   draw(){
-      canvasContext.drawRect(this.src, this.x, this.y, this.w, this.h);
+      canvasContext.fillStyle = this.c;
+      canvasContext.fillRect(this.x, this.y, this.w, this.h)
   }
 }
