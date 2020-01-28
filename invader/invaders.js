@@ -228,9 +228,9 @@ function makeEnemy() {
   var wallCounter = 0;
 
   function makeWall() {
-      const WALL_SIZE = 40;
-      var wallXpos = 5;
-      var wallYpos = 650;
+      const WALL_SIZE = 10;
+      var wallXpos = wallCounter * WALL_SIZE;
+      var wallYpos = 550;
       // var wallYpos2 = 160;
       // var wallYpos3 = 110;
       // var wallYpos4 = 61;
