@@ -103,7 +103,11 @@ function mainLoop() {
     if (enemyBullets.length > 0) {
         enemyBullets.forEach(function(enemyBullet, i) {
             enemyBullet.draw();
-        })
+            enemyBullet.move();
+
+
+        });
+        enemyBullets = enemyBullets.filter(item => item !== undefined);
     }
 
     if (bullets.length > 0) {
@@ -235,20 +239,25 @@ function makeEnemy() {
 
     enemies.push(enemy, enemy2, enemy3, enemy4);
 
+    //enemy bullet time
+
+    function makeEnemyBullet() {
+        const ENEMYBULLET_SIZE = 5;
+        var enemyBulletXpos = enemy.x + enemy.w / 2 - ENEMYBULLET_SIZE / 2;
+        var enemyBulletYpos = enemy.y - ENEMYBULLET_SIZE;
+        var enemyBulletYspeed = 5;
+
+        var enemyBullet = new EnemyBullet(enemyBulletXpos, enemyBulletYpos, ENEMYBULLET_SIZE, ENEMYBULLET_SIZE, 'green', enemyBulletYspeed);
+
+        enemyBullets.push(enemyBullet);
+
+        var EnemyLocation = enemies[Math.floor(Math.random() * items.length)];
+    }
+    setInterval(makeEnemyBullet, 2000);
+
 }
 
-function makeEnemyBullet() {
-    const ENEMYBULLET_SIZE = 5;
-    var enemyBulletXpos = enemy.x + enemy.w / 2 - ENEMYBULLET_SIZE / 2;
-    var enemyBulletYpos = enemy.y - ENEMYBULLET_SIZE;
-    var enemyBulletYspeed = 5;
 
-    var enemyBullet = new EnemyBullet(enemyBulletXpos, enemyBulletYpos, ENEMYBULLET_SIZE, ENEMYBULLET_SIZE, 'green', enemyBulletYspeed);
-
-    enemyBullets.push(enemyBullet);
-
-    var EnemyLocation = enemies[Math.floor(Math.random() * items.length)];
-}
 
 var wallCounter = 0;
 
@@ -309,6 +318,3 @@ function colorRect(x, y, w, h, c) {
     canvasContext.fillStyle = c;
     canvasContext.fillRect(x, y, w, h);
 }
-
-//enemy bullet time
-setInterval(makeEnemyBullet, 2000);
