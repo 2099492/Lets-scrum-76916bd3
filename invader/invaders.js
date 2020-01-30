@@ -48,6 +48,8 @@ var walls = [];
 
 var enemyBullets = [];
 
+
+
 var setUp = true;
 var totalEnemies = 10;
 var hitting = false;
@@ -67,7 +69,7 @@ var wHitting = false;
 var score = 0;
 
 var canvasBackGround = new Image();
-canvasBackGround.src = 'cheems.jpg';
+canvasBackGround.src = 'space.jpg';
 
 
 function mainLoop() {
@@ -237,23 +239,35 @@ function makeEnemy() {
     var enemy3 = new Enemy(enemySrc2, enemyXpos, enemyYpos3, ENEMY_SIZE, ENEMY_SIZE, enemyXspeed, enemyYspeed);
     var enemy4 = new Enemy(enemySrc2, enemyXpos, enemyYpos4, ENEMY_SIZE, ENEMY_SIZE, enemyXspeed, enemyYspeed);
 
+
+
     enemies.push(enemy, enemy2, enemy3, enemy4);
 
     //enemy bullet time
 
     function makeEnemyBullet() {
+
+        var yPos = [360, 310, 260, 211];
+        var xPos = enemies.length * 30 * Math.random();
+
+        var EnemyLocation = yPos[Math.floor(Math.random() * yPos.length)];
+
         const ENEMYBULLET_SIZE = 5;
-        var enemyBulletXpos = enemy.x + enemy.w / 2 - ENEMYBULLET_SIZE / 2;
-        var enemyBulletYpos = enemy.y - ENEMYBULLET_SIZE;
+        var enemyBulletXpos = xPos + enemy.w / 2 - ENEMYBULLET_SIZE / 2;
+        var enemyBulletYpos = EnemyLocation - ENEMYBULLET_SIZE;
         var enemyBulletYspeed = 5;
 
-        var enemyBullet = new EnemyBullet(enemyBulletXpos, enemyBulletYpos, ENEMYBULLET_SIZE, ENEMYBULLET_SIZE, 'green', enemyBulletYspeed);
+        var enemyBullet = new EnemyBullet(enemyBulletXpos, enemyBulletYpos, ENEMYBULLET_SIZE, ENEMYBULLET_SIZE, 'white', enemyBulletYspeed);
 
+
+        enemyBullets.length = 1;
         enemyBullets.push(enemyBullet);
 
-        var EnemyLocation = enemies[Math.floor(Math.random() * items.length)];
+        console.log(EnemyLocation);
     }
+
     setInterval(makeEnemyBullet, 2000);
+
 
 }
 
@@ -305,7 +319,7 @@ function makeWall() {
 
     walls.push(wall, wall2, wall3, wall4, wall5, wall6, wall7, wall8, wall9, wall10, wall11, wall12, wall13, wall14, wall15, wall16);
 
-    console.log('wall' + wallCounter);
+
 }
 
 
