@@ -1,5 +1,9 @@
 var canvas, canvasContext;
 
+var time = 1000;
+
+var game = setInterval(mainLoop, time / 62);
+
 window.onload = function() {
     canvas = document.getElementById('gameCanvas');
     canvasContext = canvas.getContext('2d');
@@ -7,11 +11,12 @@ window.onload = function() {
     document.addEventListener('keydown', keyPressed);
     document.addEventListener('keyup', keyReleased);
 
-    setInterval(mainLoop, 1000 / 62);
+    game;
 }
 
 
 //Player
+var playerLives = 0;
 var pXpos = 300;
 var pYpos = 660;
 var pXspeed = 5;
@@ -19,6 +24,7 @@ var pYspeed = 3;
 const P_SIZE = 50;
 var pSrc = new Image();
 pSrc.src = 'spaceship.png';
+
 
 
 //enemy
@@ -108,6 +114,28 @@ function mainLoop() {
             enemyBullet.move();
 
 
+
+            if (enemyBullet.outOfBounds2()) {
+              delete  enemyBullets[i];
+            }
+            if (enemyBullet.hasCollidedPlayer()) {
+              playerLives += 1;
+              console.log('playerLives' + playerLives);
+
+              if (playerLives === 3) {
+                   console.log('dead');
+                   canvasContext.font = "30px Comic Sans MS";
+                   canvasContext.fillStyle = "red";
+                   canvasContext.fillText("Game Over", 300, 50);
+                   clearInterval(game);
+              }
+
+              time = 0;
+              delete enemyBullets[i];
+            }
+            if (enemyBullet.hasCollidedWall2()) {
+              delete  enemyBullets[i];
+            }
         });
         enemyBullets = enemyBullets.filter(item => item !== undefined);
     }
@@ -161,8 +189,16 @@ function mainLoop() {
     canvasContext.font = "30px Comic Sans MS";
     canvasContext.fillStyle = "red";
     canvasContext.fillText("Jouw   score is: " + score, 10, 50);
+
+
 }
 
+// if (playerLives === 0) {
+//    time = 0;
+   // canvasContext.font = "30px Comic Sans MS";
+   // canvasContext.fillStyle = "red";
+   // canvasContext.fillText("Game Over", 300, 50);
+// }
 
 function keyPressed(evt) {
     if (evt.keyCode == LEFT_KEY) {
@@ -260,10 +296,10 @@ function makeEnemy() {
         var enemyBullet = new EnemyBullet(enemyBulletXpos, enemyBulletYpos, ENEMYBULLET_SIZE, ENEMYBULLET_SIZE, 'white', enemyBulletYspeed);
 
 
-        enemyBullets.length = 1;
+        // enemyBullets.length = 7;
         enemyBullets.push(enemyBullet);
 
-        console.log(EnemyLocation);
+        console.log('shoot');
     }
 
     setInterval(makeEnemyBullet, 2000);
